@@ -1,0 +1,75 @@
+html {
+  font-size: 50%;
+}
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 2.4rem;
+  font-size: 1.6rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+p {
+  margin: 0;
+}
+
+span {
+  font-weight: bold;
+}
+
+section {
+  border-bottom: 1px dotted grey;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.4rem;
+  gap: 0.4rem;
+  padding: 0.2rem 0;
+}
+
+table {
+  margin-bottom: 2.4rem;
+  width: 100%;
+}
+
+th {
+  text-align: start;
+}
+
+/* applies border to the table */
+table,
+th,
+td {
+  border: 1px solid black;
+  padding: 0.4rem;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+.wide-100 {
+  width: 100px;
+}
+.wide-200 {
+  width: 200px;
+}
+
+.separator {
+  border-bottom: 1px dotted grey;
+}
+
+.break {
+  page-break-after: always;
+}
+
+.container {
+  direction: rtl;
+  padding: 4rem 8rem;
+  font-size: 2.4rem;
+  font-weight: bold;
+}
+
+.paragraph {
+  margin-bottom: 4rem;
+  padding: 2rem;
+  border: 1px solid black;
+}

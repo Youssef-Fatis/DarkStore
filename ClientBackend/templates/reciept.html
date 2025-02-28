@@ -1,0 +1,215 @@
+<section class="header">
+  <div>
+    <div class="float-left">
+      <div>
+        <img src="data:image/png;base64,{{ img_string }}" />
+      </div>
+      <div>
+        <h1>Fati's</h1>
+      </div>
+    </div>
+    <div class="float-right">
+      <p class="align-left date">{{date}}</p>
+      <p class="align-left order-id">{{order.orderName}}</p>
+    </div>
+    <div class="clear-left"></div>
+    <div class="clear-right"></div>
+  </div>
+</section>
+<section>
+  <div>
+    <span class="float-left">Courier:</span>
+    {% if courier %}
+    <p class="float-right">{{ courier }}</p>
+    {% else %}
+    <p class="float-right">###</p>
+    {% endif %}
+    <div class="clear-left"></div>
+    <div class="clear-right"></div>
+  </div>
+  <div>
+    <span class="float-left">Zone Number:</span>
+    {% if zone_number or zone_number == 0 %}
+    <p class="float-right">{{ zone_number }}</p>
+    {% else %}
+    <p class="float-right">###</p>
+    {% endif %}
+    <div class="clear-left"></div>
+    <div class="clear-right"></div>
+  </div>
+  <div>
+    <span class="float-left">Zone:</span>
+    <p class="float-right">{{order.areaName}}</p>
+    <div class="clear-left"></div>
+    <div class="clear-right"></div>
+  </div>
+  <div>
+    <span class="float-left">Delivery Method:</span>
+    <p class="float-right">{{order.deliveryType}}</p>
+    <div class="clear-left"></div>
+    <div class="clear-right"></div>
+  </div>
+</section>
+{% if order.gift %}
+<section>
+  <div class="half-width float-left">
+    <div>
+      <span class="float-left">Name:</span>
+      <p class="float-right">{{order.recipientName}}</p>
+      <div class="clear-left"></div>
+      <div class="clear-right"></div>
+    </div>
+    <div>
+      <span class="float-left">Mobile:</span>
+      <p class="float-right">{{order.recipientPhoneNumber}}</p>
+      <div class="clear-left"></div>
+      <div class="clear-right"></div>
+    </div>
+    <div>
+      <span class="float-left">Address:</span>
+      <p class="float-right ar">{{order.address}}</p>
+      <div class="clear-left"></div>
+      <div class="clear-right"></div>
+    </div>
+  </div>
+  <div class="float-right small-half-width">
+    <div>
+      <span class="float-left">Address Note:</span>
+      <p class="float-right">{{order.addressNote}}</p>
+      <div class="clear-left"></div>
+      <div class="clear-right"></div>
+    </div>
+    <div>
+      <span class="float-left">Is Gift:</span>
+      <p class="float-right">{{order.gift}}</p>
+      <div class="clear-left"></div>
+      <div class="clear-right"></div>
+    </div>
+    <div>
+      <span class="float-left">Gift Note:</span>
+      <p class="float-right">{{order.giftNotes}}</p>
+      <div class="clear-left"></div>
+      <div class="clear-right"></div>
+    </div>
+  </div>
+  <div class="clear-right"></div>
+</section>
+{% endif %} {% if not order.gift %}
+<section>
+  <div class="half-width float-left">
+    <div>
+      <span class="float-left">Name:</span>
+      <p class="float-right">{{order.customerName}}</p>
+      <div class="clear-left"></div>
+      <div class="clear-right"></div>
+    </div>
+    <div>
+      <span class="float-left">Mobile:</span>
+      <p class="float-right">{{order.phoneNumber}}</p>
+      <div class="clear-left"></div>
+      <div class="clear-right"></div>
+    </div>
+  </div>
+  <div class="float-right small-half-width">
+    <div>
+      <span class="float-left">Address:</span>
+      <p class="float-right">{{order.address}}</p>
+      <div class="clear-left"></div>
+      <div class="clear-right"></div>
+    </div>
+    <div>
+      <span class="float-left">Address Note:</span>
+      <p class="float-right">{{order.addressNote}}</p>
+      <div class="clear-left"></div>
+      <div class="clear-right"></div>
+    </div>
+  </div>
+  <div class="clear-right"></div>
+</section>
+{% endif %}
+<section>
+  <div>
+    <div class="float-left products-header">
+      <p class="float-left">Qty.&emsp;&emsp;&emsp;</p>
+      <p class="float-right">Item</p>
+    </div>
+    <p class="float-right">Price</p>
+    <div class="clear-left"></div>
+    <div class="clear-right"></div>
+  </div>
+  <div class="products-container">
+    {% for product in order.products %}
+    <div class="product">
+      <div class="float-left">
+        <p class="float-left">{{product.quantity}}X&emsp;&emsp;&emsp;&emsp;</p>
+        <div class="float-right">
+          <p>{{ product.name }}</p>
+          {% if product.note %}
+          <p class="highlight">Note:&emsp;{{product.note}}</p>
+          {% endif %}
+          <div class="variants">
+            {% for variant in product.variants %}
+            <div class="variant">
+              <p class="variant-title">{{variant.name}}</p>
+              <div class="variant-content">
+                <div class="float-left">
+                  {% for modifier in variant.modifiers %}
+                  <div class="modifier">
+                    <div class="float-left">
+                      {% if not modifier.price %}
+                      <p class="float-left">
+                        &emsp;&emsp;{{modifier.quantity}}X&emsp;{{modifier.name}}
+                      </p>
+                      {% endif %} {% if modifier.price %}
+                      <p class="float-left">
+                        &emsp;&emsp;{{modifier.quantity}}X&emsp;{{modifier.name}}&emsp;&emsp;EGP&emsp;{{modifier.price}}
+                      </p>
+                      {% endif %}
+                      <p class="float-right"></p>
+                    </div>
+                    <div class="clear-left"></div>
+                    <div class="clear-right"></div>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div class="clear-left"></div>
+            <div class="clear-right"></div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <p class="float-right">EGP&emsp;{{product.price}}</p>
+      <div class="clear-left"></div>
+      <div class="clear-right"></div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+<section>
+  {% for key, value in pricing_list.items() %}
+  <div>
+    <span class="float-left">{{ key }}:</span>
+    <p class="float-right">EGP&emsp;{{ value }}</p>
+    <div class="clear-left"></div>
+    <div class="clear-right"></div>
+  </div>
+  {% endfor %}
+</section>
+<section>
+  <div>
+    <span class="float-left">Total:</span>
+    <p class="float-right">EGP&emsp;{{order.total}}</p>
+    <div class="clear-left"></div>
+    <div class="clear-right"></div>
+  </div>
+</section>
+<section>
+  <div>
+    <span class="float-left">Payment:</span>
+    <p class="float-right">{{order.paidThrough}}</p>
+    <div class="clear-left"></div>
+    <div class="clear-right"></div>
+  </div>
+</section>

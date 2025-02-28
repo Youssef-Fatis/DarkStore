@@ -1,0 +1,94 @@
+html {
+  font-size: 50%;
+}
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 2.4rem;
+  font-size: 1.6rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+img {
+  width: 10rem;
+}
+
+h1 {
+  font-size: 2.4rem;
+  margin: 0 2.2rem;
+}
+
+section {
+  border-bottom: 1px dotted grey;
+  padding: 2.4rem 0;
+}
+p {
+  margin: 0;
+}
+
+span {
+  font-weight: bold;
+}
+
+.float-left {
+  float: left;
+}
+.float-right {
+  float: right;
+}
+
+.clear-left {
+  clear: left;
+}
+.clear-right {
+  clear: right;
+}
+.align-left {
+  text-align: left;
+}
+
+.half-width {
+  width: 50%;
+}
+.small-half-width {
+  width: 45%;
+}
+.ar {
+  direction: rtl;
+}
+.highlight {
+  color: rgb(237, 128, 31);
+  background-color: rgb(254, 245, 237);
+  margin-top: 1rem;
+  font-size: 1.4rem;
+}
+
+.date {
+  font-size: 2rem;
+  font-weight: 500;
+}
+.order-id {
+  font-size: 2.4rem;
+  font-weight: bold;
+}
+
+.products-container {
+  margin-top: 1.6rem;
+}
+
+.product {
+  font-weight: bold;
+  margin-bottom: 0.8rem;
+}
+
+.variant-title {
+  font-weight: normal;
+}
+
+.variant-content {
+  font-weight: normal;
+}
+
+.variants {
+  margin-top: 1.5rem;
+}

@@ -1,0 +1,119 @@
+<div class="float-right">
+  <p class="align-left date">{{date}}</p>
+</div>
+<table>
+  <thead>
+    <th>No.#</th>
+    <th>Status</th>
+    <th>PM</th>
+    <th>Payment</th>
+    <th>Is gift</th>
+    <th>Name</th>
+    <th>Check</th>
+    <th>Box</th>
+    <th>Tube</th>
+    <th>Phone Number</th>
+    <th>Address</th>
+    <th>Total</th>
+    <th>Delivery</th>
+  </thead>
+  <tbody>
+    {% for order in orders %}
+    <tr>
+      <td>{{loop.index}}</td>
+      <td></td>
+      <td></td>
+      <td class="wide-100">{{order.paidThrough}}</td>
+      {% if not order.gift %}
+      <td>✗</td>
+      {% else %}
+      <td>✓</td>
+      {% endif %} {% if not order.gift %}
+      <td class="wide-200">{{order.customerName}}</td>
+      {% else %}
+      <td class="wide-200">
+        <div>Maker: {{order.customerName}}</div>
+        <div class="separator"></div>
+        <div>Reciepient: {{order.recipientName}}</div>
+      </td>
+      {% endif %}
+      <td></td>
+      <td></td>
+      <td></td>
+      {% if not order.gift %}
+      <td>{{order.phoneNumber}}</td>
+      {% else %}
+      <td class="wide-200">
+        <div>Maker: {{order.phoneNumber}}</div>
+        <div class="separator"></div>
+        <div>Reciepient: {{order.recipientPhoneNumber}}</div>
+      </td>
+      {% endif %}
+      <td>{{order.address}}</td>
+      <td>
+        {% if order.paidThrough == 'credit card' %} 0 {% else %} {{order.total}}
+        {% endif %}
+      </td>
+      <td>{{order.deliveryFee}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<p><span>Zone:&nbsp;&nbsp;</span>{{zone_number}}</p>
+<p><span>Courier:&nbsp;&nbsp;</span>{{courier}}</p>
+<br />
+<br />
+<p><span>Money Collected:&nbsp;&nbsp;</span></p>
+
+<div class="break"></div>
+<div class="float-left">
+  <p class="align-left date">{{date}}</p>
+  <p><span>Zone:&nbsp;&nbsp;</span>{{zone_number}}</p>
+  <p><span>Courier:&nbsp;&nbsp;</span>{{courier}}</p>
+</div>
+<div class="container">
+  <div>
+    <p style="width: 46%; float: right" class="paragraph">
+      عدد الأوردرات: &nbsp;
+    </p>
+    <p style="width: 46%; float: left" class="paragraph">
+      عدد الأوردرات الراجعه: &nbsp;
+    </p>
+    <div style="clear: right"></div>
+    <div style="clear: left"></div>
+  </div>
+  <p class="paragraph">سبب الكنسله: &nbsp;</p>
+
+  <div>
+    <p style="width: 46%; float: right" class="paragraph">
+      تحصيل الكاش: &nbsp;
+    </p>
+    <p style="width: 46%; float: left" class="paragraph">
+      تحويلات معاك: &nbsp;
+    </p>
+    <div style="clear: right"></div>
+    <div style="clear: left"></div>
+  </div>
+  <div>
+    <p style="width: 46%; float: right" class="paragraph">
+      تحصيل الشركه: &nbsp;
+    </p>
+    <p style="width: 46%; float: left" class="paragraph">
+      نسبه التوصيل: &nbsp;
+    </p>
+    <div style="clear: right"></div>
+    <div style="clear: left"></div>
+  </div>
+  <div>
+    <p style="width: 46%; float: right" class="paragraph">
+      ميعاد التحرك: &nbsp;
+    </p>
+    <p style="width: 46%; float: left" class="paragraph">
+      ميعاد انهاء اليوم: &nbsp;
+    </p>
+    <div style="clear: right"></div>
+    <div style="clear: left"></div>
+  </div>
+  <p class="paragraph">أضافات: &nbsp;</p>
+  <p class="paragraph">امضاء: &nbsp;</p>
+</div>

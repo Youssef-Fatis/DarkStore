@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+django-debug-toolbar = "*"
+aiohttp = "*"
+requests = "*"
+python-dotenv = "*"
+pypiwin32 = "*"
+pypdf2 = "*"
+jinja2 = "*"
+pandas = "*"
+pdfkit = "*"
+tqdm = "*"
+openpyxl = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.13"
