@@ -29,7 +29,7 @@ class ZydasOrder:
         self.products: List[Product] = products if products is not None else []
 
     def zydasOrderFactory(order, zydaOrderService):
-        orderDetails = order["data"]["order"]
+        orderDetails = order
         # Use `.get()` with default values to handle missing or None values
         id = orderDetails.get("id", "")
         orderName = orderDetails.get("number", "")

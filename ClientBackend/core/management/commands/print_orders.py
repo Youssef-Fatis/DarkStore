@@ -36,30 +36,6 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def save_order_in_db(order, order_id):
-    """
-    Save the order in the database using an atomic transaction.
-    """
-    order = order['data']['order']
-    try:
-        with transaction.atomic():
-            obj, created = Order.objects.get_or_create(
-                id=order_id,
-                defaults={
-                    "number": order["number"],
-                    "created_at": order["createdAt"],
-                    "expected_at": order["expectedAt"],
-                }
-            )
-            if created:
-                logger.info(f"Order {order['id']} saved to DB.")
-            else:
-                logger.info(f"Order {order['id']} already exists in DB.")
-    except Exception as e:
-        logger.error(f"Error saving order {order['id']} in DB: {e}")
-        raise
-
-
 zydaOrderService = ZydaOrderService()
 
 
@@ -76,17 +52,7 @@ async def print_and_save_orders(token: str, orders_tuple):
             logger.info(
                 f"Successfully fetched details for order ID: {reference_id}")
 
-            newOrder = ZydasOrder.zydasOrderFactory(order, zydaOrderService)
-            logger.info(f"Created ZydasOrder for order: {newOrder.orderName}")
-
-            zydaOrderService.createReciptForOrder(newOrder)
-            logger.info(f"Created receipt for order: {newOrder.orderName}")
-
-            zydaOrderService.printOrderReceipt(newOrder.orderName)
-            logger.info(f"Printed receipt for order: {newOrder.orderName}")
-
-            await sync_to_async(save_order_in_db)(order, main_id)
-            logger.info(f"Order {reference_id} processed and saved.")
+            
         except Exception as e:
             logger.error(f"Error processing order {reference_id}: {e}")
 
@@ -153,20 +119,39 @@ class Command(BaseCommand):
 
             # Filter out orders that already exist in the database
             filtered_data = [
-                (order["id"], order['reference_id']) for order in data if order['id'] not in orders_in_db
+                order for order in data if order['id'] not in orders_in_db
             ]
             logger.info(
                 f"{len(filtered_data)} new orders to process after filtering.")
 
             if filtered_data:
-                try:
-                    token = external_apis.auth.utils.get_token(
-                        os.getenv("EMAIL"), os.getenv("PASSWORD")
-                    )
-                    logger.info("Obtained authentication token.")
-                    asyncio.run(print_and_save_orders(token, filtered_data))
-                except Exception as e:
-                    logger.error(f"Error during asynchronous processing: {e}")
+                for order in filtered_data:
+                    newOrder = ZydasOrder.zydasOrderFactory(order["details"], zydaOrderService)
+                    logger.info(f"Created ZydasOrder for order: {newOrder.orderName}")
+
+                    zydaOrderService.createReciptForOrder(newOrder)
+                    logger.info(f"Created receipt for order: {newOrder.orderName}")
+
+                    zydaOrderService.printOrderReceipt(newOrder.orderName)
+                    logger.info(f"Printed receipt for order: {newOrder.orderName}")
+                    try:
+                        with transaction.atomic():
+                            obj, created = Order.objects.get_or_create(
+                                id=order["id"],
+                                defaults={
+                                    "number": order["number"],
+                                    "created_at": order["created_at"],
+                                    "expected_at": order["expected_at"],
+                                }
+                            )
+                            if created:
+                                logger.info(f"Order {order['id']} saved to DB.")
+                            else:
+                                logger.info(f"Order {order['id']} already exists in DB.")
+                    except Exception as e:
+                        logger.error(f"Error saving order {order['id']} in DB: {e}")
+                        raise
+                    logger.info(f"Order {order["number"]} processed and saved.")
             else:
                 logger.info("No new orders to process.")
 
