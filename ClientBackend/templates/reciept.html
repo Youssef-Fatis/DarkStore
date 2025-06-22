@@ -198,12 +198,21 @@
   {% endfor %}
 </section>
 <section>
+  {% if order.paidThrough.lower() == "cash" %}
   <div>
     <span class="float-left">Total:</span>
     <p class="float-right">EGP&emsp;{{order.total}}</p>
     <div class="clear-left"></div>
     <div class="clear-right"></div>
   </div>
+  {% else %}
+  <div>
+    <span class="float-left">Total:</span>
+    <p class="float-right">EGP&emsp;0</p>
+    <div class="clear-left"></div>
+    <div class="clear-right"></div>
+  </div>
+  {% endif %}
 </section>
 <section>
   <div>

@@ -1,5 +1,5 @@
 html {
-  font-size: 50%;
+  font-size: 45%;
 }
 body {
   box-sizing: border-box;
@@ -20,7 +20,8 @@ h1 {
 
 section {
   border-bottom: 1px dotted grey;
-  padding: 2.4rem 0;
+  width: 35%;
+  margin: auto;
 }
 p {
   margin: 0;

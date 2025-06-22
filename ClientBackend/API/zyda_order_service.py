@@ -1,6 +1,7 @@
 import base64
 from datetime import datetime, timezone
 import os
+import subprocess
 import win32api
 import win32print
 import shutil
